@@ -1,0 +1,62 @@
+# Reversing a Stack using only Stack Operations (Push and Pop)
+
+# Function to push an item into the stack
+def push(stack, value):
+    stack.append(value)  # Stack operation to push an element
+
+# Function to pop an item from the stack
+def pop(stack):
+    if len(stack) == 0:  # Checking if stack is empty
+        return None
+    return stack.pop()  # Stack operation to pop an element
+
+# Function to insert an element at the bottom of the stack
+def insert_at_bottom(stack, item):
+    if len(stack) == 0:  # If the stack is empty, push the item
+        push(stack, item)
+    else:
+        # Pop all elements until we reach the bottom
+        popped_item = pop(stack)  # Remove the top item
+        insert_at_bottom(stack, item)  # Recursive call
+        push(stack, popped_item)  # Push back all the popped items
+
+# Function to reverse the stack
+def reverse_stack(stack):
+    if len(stack) == 0:  # Base case: if stack is empty, do nothing
+        return
+    else:
+        # Pop the top item
+        top_item = pop(stack)  # Remove the top item
+        # Reverse the remaining stack
+        reverse_stack(stack)  # Recursive call to reverse the rest
+        # Insert the popped item at the bottom of the reversed stack
+        insert_at_bottom(stack, top_item)  # Insert at the bottom
+
+# Function to print the stack
+def print_stack(stack):
+    for i in range(len(stack)):
+        print(stack[i], end=" ")  # Printing elements in the stack
+    print()  # New line after printing stack
+
+# Main function to execute the code
+if __name__ == "__main__":
+    # Create a stack (initially empty)
+    stack = []
+    
+    # Push elements to the stack
+    push(stack, 1)
+    push(stack, 2)
+    push(stack, 3)
+    push(stack, 4)
+    push(stack, 5)
+    
+    # Print the original stack
+    print("Original Stack:")
+    print_stack(stack)
+    
+    # Reverse the stack
+    reverse_stack(stack)
+    
+    # Print the reversed stack
+    print("Reversed Stack:")
+    print_stack(stack)
